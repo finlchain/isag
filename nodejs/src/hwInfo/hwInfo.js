@@ -41,7 +41,7 @@ module.exports.getHwInfo = async(my_role) => {
     }
     else{
         cpuArr = await util.getResultArr(define.HW_INFO.CPU_MODEL);
-        memSizeArr = await parseIntArr(await util.getResultArr(define.HW_INFO.MEM_SIZE));
+        memSizeArr = await util.parseIntArr(await util.getResultArr(define.HW_INFO.MEM_SIZE));
         memSpeed = await util.parseIntArrSum(await util.getResultArr(define.HW_INFO.MEM_SPEED));
     }
 
@@ -92,7 +92,7 @@ const pushGbTb = (value, arr) => {
 }
 
 const getStorageInfo = async() => {
-    let arr = util.getResultArr(define.HW_INFO.STORAGE_INFO);
+    let arr = await util.getResultArr(define.HW_INFO.STORAGE_INFO);
     let hddRaidSize = new Array();
     let ssdRaidSize = new Array();
     let nvmeRaidSize = new Array();

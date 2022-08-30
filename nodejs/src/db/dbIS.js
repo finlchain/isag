@@ -366,7 +366,7 @@ module.exports.getReplData = async (blkNum, role, clusterP2pAddr) => {
         if (query_result_1.length)
         {
             maxBlkNum = query_result_1[0].max_blk_num;
-            logger.debug("maxBlkNum : " + maxBlkNum);
+            logger.debug("maxBlkNum 1 : " + maxBlkNum);
     
             query_result = await dbUtil.queryPre(this.querys.is.repl_info.selectReplInfoByBN, [maxBlkNum]);
         }
@@ -379,7 +379,7 @@ module.exports.getReplData = async (blkNum, role, clusterP2pAddr) => {
         if (query_result_1.length)
         {
             maxBlkNum = query_result_1[0].max_blk_num;
-            logger.debug("maxBlkNum : " + maxBlkNum);
+            logger.debug("maxBlkNum 2 : " + maxBlkNum);
             
             query_result = await dbUtil.queryPre(this.querys.is.repl_info.selectReplInfoByBNAndRole, [maxBlkNum, role]);
         }
@@ -392,7 +392,7 @@ module.exports.getReplData = async (blkNum, role, clusterP2pAddr) => {
         if (query_result_1.length)
         {
             maxBlkNum = query_result_1[0].max_blk_num;
-            logger.debug("maxBlkNum : " + maxBlkNum);
+            logger.debug("maxBlkNum 3 : " + maxBlkNum);
     
             query_result = await dbUtil.queryPre(this.querys.is.repl_info.selectReplInfoByBNAndRoleAndClusterP2pAddr, [maxBlkNum, role, clusterP2pAddr]);
         }

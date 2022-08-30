@@ -114,6 +114,9 @@ module.exports.DB_TEST_MODE = false;
 module.exports.DB_TEST_MODE_DROP = false;
 module.exports.DB_TEST_MODE_REPL = false;
 
+//
+module.exports.DB_CREATE_USER = false;
+
 // VM true? 1, false? 0
 module.exports.IS_VM = 1;
 

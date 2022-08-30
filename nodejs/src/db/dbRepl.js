@@ -100,13 +100,13 @@ module.exports.restartReplSlaves = async () => {
                 let masterLogFile = query_result[i]['Master_Log_File'];
                 let masterLogPos = query_result[i]['Exec_Master_Log_Pos'];
 
-                logger.debug("connName : " + connName);
-                logger.debug("masterHost : " + masterHost); // IP
-                logger.debug("masterUser : " + masterUser);
-                logger.debug("masterPwd : " + masterPwd);
-                logger.debug("masterPort : " + masterPort);
-                logger.debug("masterLogFile : " + masterLogFile);
-                logger.debug("masterLogPos : " + masterLogPos);
+                // logger.debug("connName : " + connName);
+                // logger.debug("masterHost : " + masterHost); // IP
+                // logger.debug("masterUser : " + masterUser);
+                // logger.debug("masterPwd : " + masterPwd);
+                // logger.debug("masterPort : " + masterPort);
+                // logger.debug("masterLogFile : " + masterLogFile);
+                // logger.debug("masterLogPos : " + masterLogPos);
         
                 await this.setReplSlaves(connName, masterHost, masterUser, masterPwd, masterPort, masterLogFile, masterLogPos);
             }
@@ -141,13 +141,13 @@ module.exports.getReplSlaves = async () => {
                 let masterLogFile = query_result[i]['Master_Log_File'];
                 let masterLogPos = query_result[i]['Exec_Master_Log_Pos'];
 
-                logger.debug("connName : " + connName);
-                logger.debug("masterHost : " + masterHost); // IP
-                logger.debug("masterUser : " + masterUser);
-                logger.debug("masterPwd : " + masterPwd);
-                logger.debug("masterPort : " + masterPort);
-                logger.debug("masterLogFile : " + masterLogFile);
-                logger.debug("masterLogPos : " + masterLogPos);
+                // logger.debug("connName : " + connName);
+                // logger.debug("masterHost : " + masterHost); // IP
+                // logger.debug("masterUser : " + masterUser);
+                // logger.debug("masterPwd : " + masterPwd);
+                // logger.debug("masterPort : " + masterPort);
+                // logger.debug("masterLogFile : " + masterLogFile);
+                // logger.debug("masterLogPos : " + masterLogPos);
 
                 this.getReplSlavesQueries(connName, masterHost, masterUser, masterPwd, masterPort, masterLogFile, masterLogPos);
             }
@@ -202,7 +202,7 @@ module.exports.setReplSlaveIS = async (subNetId, ip, logFile, logPos) => {
                 + `MASTER_LOG_FILE='${logFile}', ` 
                 + `MASTER_LOG_POS=${logPos}`;
         
-        logger.debug("setReplSlaveIS queryV : " + queryV);
+        // logger.debug("setReplSlaveIS queryV : " + queryV);
         await conn.query(queryV);
     }
 
@@ -232,7 +232,7 @@ module.exports.setReplSlaveNN = async (subNetId, ip, logFile, logPos) => {
                 + `MASTER_LOG_FILE='${logFile}', ` 
                 + `MASTER_LOG_POS=${logPos}`;
         
-        logger.debug("setReplSlaveNN queryV : " + queryV);
+        // logger.debug("setReplSlaveNN queryV : " + queryV);
         await conn.query(queryV);
     }
 
@@ -248,7 +248,7 @@ module.exports.getReplSlavesQueries = (connName, ip, user, pwd, port, logFile, l
             + `MASTER_LOG_FILE='${logFile}', ` 
             + `MASTER_LOG_POS=${logPos}`;
     
-    logger.debug("setReplSlaveNN query : " + queries);
+    // logger.debug("setReplSlaveNN query : " + queries);
 
     return queries;
 }
@@ -297,7 +297,7 @@ module.exports.createReplUsers = async () => {
     await util.asyncForEach(config.CFG_PATH.MARIA.REPL_USERS, async (element, index) => {
         user = element;
         pwd = config.CFG_PATH.MARIA.REPL_USERS_PW[index];
-        logger.debug("Replication user : " + user + ", pw : " + pwd);
+        logger.debug("Replication user : " + user);
     
         await util.asyncForEach(replUserQuerys.querys, async (element, index) => {
             if(index === define.DB_DEFINE.REPL_QUERY_INDEX.DROP_USER_INDEX)
@@ -313,8 +313,6 @@ module.exports.createReplUsers = async () => {
                 // element += user;
                 element += `'${user}'@'%'`;
             }
-
-            logger.debug("replUserQuerys : " + element);
             
             [query_result] = await conn.query(element);
         });
@@ -324,6 +322,9 @@ module.exports.createReplUsers = async () => {
 }
 
 module.exports.initReplication = async () => {
-    // await this.dropReplUsers();
-    await this.createReplUsers();
+    if (config.DB_CREATE_USER === true)
+    {
+        // await this.dropReplUsers();
+        await this.createReplUsers();
+    }
 }

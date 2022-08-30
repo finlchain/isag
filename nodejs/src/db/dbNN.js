@@ -226,7 +226,13 @@ const createTableFields = {
         + "`db_key` bigint(20) unsigned DEFAULT 0 NOT NULL COMMENT 'DB Key', "
         + "`sc_action` int(11) unsigned NOT NULL DEFAULT 0,"
         + "`action_target` int(11) unsigned NOT NULL DEFAULT 0,"
+        + "`from_account_num` bigint(20) unsigned DEFAULT 0 NOT NULL COMMENT 'Sending Account Number', "
+        + "`to_account_num` bigint(20) unsigned DEFAULT 0 NOT NULL COMMENT 'Receved Account Number', "
+        + "`sub_id` int(11) unsigned NOT NULL DEFAULT 0,"
         + "`sc` json DEFAULT NULL,"
+        + "KEY `actions1` (`action_target`, `sc_action`, `sub_id`) USING BTREE, "
+        + "KEY `actions2` (`sc_action`, `sub_id`) USING BTREE, "
+        + "KEY `subnet_id` (`subnet_id`) USING BTREE, "
         + "UNIQUE KEY `uk_idx` (`idx`, `subnet_id`), "
         + "PRIMARY KEY (`db_key`, `sc_action`, `action_target`, `blk_num`, `subnet_id`) USING BTREE",
     ]

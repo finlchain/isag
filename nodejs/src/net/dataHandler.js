@@ -40,8 +40,8 @@ module.exports.saveReplInfoIS = async (replData) => {
     let subNetId = clusterP2pAddr.slice(10, 14);
 
     // Slave
-    logger.info("clusterP2pAddr : " + clusterP2pAddr + ", subNetId : " + subNetId);
-    logger.info("ip : " + ip + ", logFile : " + logFile + ", logPos : " + logPos + ", replBlkNum : " + replBlkNum);
+    logger.debug("clusterP2pAddr : " + clusterP2pAddr + ", subNetId : " + subNetId);
+    logger.debug("ip : " + ip + ", logFile : " + logFile + ", logPos : " + logPos + ", replBlkNum : " + replBlkNum);
     await dbRepl.setReplSlaveIS(subNetId, ip, logFile, logPos);
 }
 
@@ -64,9 +64,9 @@ module.exports.saveReplInfoNN = async (replData) => {
     // // Master
     // // let isagServerIdHex = '0x' + subNetId + define.NODE_ROLE.NUM.ISAG.toString();
     // // let isagServerId = parseInt(isagServerIdHex);
-    // // logger.info("isagServerIdHex : " + isagServerIdHex + ", isagServerId : " + isagServerId);
+    // // logger.debug("isagServerIdHex : " + isagServerIdHex + ", isagServerId : " + isagServerId);
     // let isagServerId = util.ipToInt(util.getMyReplIP().toString());
-    // logger.info("isagServerId : " + isagServerId);
+    // logger.debug("isagServerId : " + isagServerId);
     
     // let res = await dbRepl.setReplMaster(isagServerId);
 
@@ -94,7 +94,7 @@ module.exports.saveReplInfoMaster = async (clusterP2pAddr, replBlkNum, socket) =
 
     // Master
     let isagServerId = util.ipToInt(util.getMyReplIP().toString());
-    logger.info("isagServerId : " + isagServerId);
+    logger.debug("isagServerId : " + isagServerId);
     
     let res = await dbRepl.setReplMaster(isagServerId);
 
@@ -124,16 +124,16 @@ module.exports.saveReplInfo = async (replData, socket) => {
     let subNetId = clusterP2pAddr.slice(10, 14);
 
     // Slave
-    logger.info("clusterP2pAddr : " + clusterP2pAddr + ", subNetId : " + subNetId);
-    logger.info("ip : " + ip + ", logFile : " + logFile + ", logPos : " + logPos + ", replBlkNum : " + replBlkNum);
+    logger.debug("clusterP2pAddr : " + clusterP2pAddr + ", subNetId : " + subNetId);
+    logger.debug("ip : " + ip + ", logFile : " + logFile + ", logPos : " + logPos + ", replBlkNum : " + replBlkNum);
     await dbRepl.setReplSlaveNN(subNetId, ip, logFile, logPos);
 
     // Master
     // let isagServerIdHex = '0x' + subNetId + define.NODE_ROLE.NUM.ISAG.toString();
     // let isagServerId = parseInt(isagServerIdHex);
-    // logger.info("isagServerIdHex : " + isagServerIdHex + ", isagServerId : " + isagServerId);
+    // logger.debug("isagServerIdHex : " + isagServerIdHex + ", isagServerId : " + isagServerId);
     let isagServerId = util.ipToInt(util.getMyReplIP().toString());
-    logger.info("isagServerId : " + isagServerId);
+    logger.debug("isagServerId : " + isagServerId);
     
     let res = await dbRepl.setReplMaster(isagServerId);
 
@@ -160,7 +160,7 @@ module.exports.cmdChildProcess = async (socket, msg, myRole) => {
     let msgJson = JSON.parse(msg);
 
     logger.info("Command from IS, myRole : " + myRole + ", msgJson.cmd : " + msgJson.cmd);
-    logger.debug("msgJson.data : " + JSON.stringify(msgJson.data));
+    logger.info("msgJson.data : " + JSON.stringify(msgJson.data));
 
     //
     let splitMsg = msgJson.cmd.split(' ');

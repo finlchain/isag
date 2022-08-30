@@ -38,7 +38,7 @@ module.exports.getMyRole = () => {
 }
 
 module.exports.isClient = async () => {
-    logger.info("tcpClient : " + JSON.stringify(tcpClient));
+    logger.debug("tcpClient : " + JSON.stringify(tcpClient));
     let isagSocket = net.connect(tcpClient, async function () {
         this.setEncoding(config.CMD_ENCODING.encoding);
         logger.info("[TCP] [IS] Connected");
@@ -76,7 +76,7 @@ module.exports.isClient = async () => {
             logger.warn("[TCP] [IS] " + "Socket Timed Out");
         });
         this.on("close", function () {
-            logger.info("[TCP] [IS] " + "Socket Closed");
+            logger.warn("[TCP] [IS] " + "Socket Closed");
         });
     });
 

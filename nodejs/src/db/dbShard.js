@@ -52,7 +52,7 @@ module.exports.createShardUser = async () => {
         user = element;
         pwd = config.CFG_PATH.MARIA.SHARD_USERS_PW[index];
 
-        logger.debug("SHARD user : " + user + ", pw : " + pwd);
+        logger.debug("SHARD user : " + user);
 
         await util.asyncForEach(shardQuerys.userQuerys, async (element, index) => {
             if(index === define.DB_DEFINE.SHARD_USERS_QUERY_INDEX.DROP_USER_INDEX) {
@@ -78,7 +78,6 @@ module.exports.dropShardServers = async () => {
     [query_result] = await conn.query(queryV);
     //console.log(query_result);
 
-    logger.debug("mysql.servers length : " + query_result.length);
     for(var i = 0; i < query_result.length; i++)
     {
         // for ( var keyNm in query_result[i]) {
@@ -86,7 +85,7 @@ module.exports.dropShardServers = async () => {
         // }
 
         queryV = "DROP SERVER if exists " + query_result[i]['Server_name'];
-        logger.debug("queryV : " + queryV);
+        // logger.debug("queryV : " + queryV);
         await conn.query(queryV);
     }
 
@@ -113,7 +112,7 @@ module.exports.createShardServers = async () => {
         ipArr.push(config.SOCKET_INFO.BIND_ISAG_SEVER_HOST);
         subNetIdArr.push(define.P2P_DEFINE.P2P_SUBNET_ID_IS);
 
-        logger.debug("nnaIPs.length : " + ipArr.length);
+        // logger.debug("nnaIPs.length : " + ipArr.length);
 
         await util.asyncForEach(ipArr, async (ip, index) => {
             //logger.debug("index : " + index + ", ip :" + ip);
@@ -125,7 +124,7 @@ module.exports.createShardServers = async () => {
                     + `PASSWORD '${pwd}',`
                     + `PORT ${port}` + ")";
             
-            logger.debug("createShardServers query : " + queryV);
+            // logger.debug("createShardServers query : " + queryV);
             await conn.query(queryV);
         });
     });
@@ -162,7 +161,7 @@ const createShardTables = async () => {
                 }
             });
             element += `)`;
-            logger.debug("createShardTables isQuerys : " + element);
+            // logger.debug("createShardTables isQuerys : " + element);
             await conn.query(element);
         });
         
@@ -180,7 +179,11 @@ const createShardTables = async () => {
 
 module.exports.initShard = async () => {
     // Server Side
-    // await this.createShardUser();
+    // if (config.DB_CREATE_USER === true)
+    // {
+        // await this.createShardUser();
+    // }
+
 
     // Client Side
     await this.dropShardServers();

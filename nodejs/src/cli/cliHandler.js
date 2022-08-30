@@ -12,7 +12,7 @@ const logger = require('./../utils/winlog.js');
 module.exports.handler = async (cmd) => {
     let retVal = true;
 
-    logger.info('ISAg CLI Received Data : ' + cmd);
+    logger.debug('ISAg CLI Received Data : ' + cmd);
 
     let cmdSplit = cmd.split(' ');
 

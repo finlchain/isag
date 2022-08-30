@@ -22,7 +22,7 @@ module.exports.getConn = async () => {
         return await maria_conn_pool.getConnection(async conn => conn);
     } catch (error) {
         // debug.error(error);
-        logger.info("getConn Func - Error");
+        logger.error("getConn Func - Error");
     }
 }
 
@@ -51,8 +51,8 @@ module.exports.queryPre = async (queryV, param) => {
     logger.debug("func : queryPre");
 
     const conn = await this.getConn();
-    logger.debug("queryV : " + queryV);
-    logger.debug("param : " + param);
+    // logger.debug("queryV : " + queryV);
+    // logger.debug("param : " + param);
     [query_result] = await this.exeQueryParam(conn, queryV, param);
 
     await this.releaseConn(conn);
@@ -94,10 +94,10 @@ module.exports.query = async (queryV) => {
 }
 
 module.exports.actQuery = async (queryV) => {
-    logger.debug("actQuery queryV : " + queryV);
+    // logger.debug("actQuery queryV : " + queryV);
     let query_result =  await this.query(queryV);
 
-    logger.info("actQuery result : " + JSON.stringify(query_result));
+    // logger.info("actQuery result : " + JSON.stringify(query_result));
 }
 
 module.exports.truncate = (dbName) => {

@@ -5,7 +5,7 @@ require('date-utils');
 
 //
 let LOG_LEVEL_FILE = "debug";
-let LOG_LEVEL_CONSOLE = "debug";
+let LOG_LEVEL_CONSOLE = "info";
 
 //let LOGFILE_PATH = './../../log/isag.log';
 let LOGFILE_PATH = '/disk/data/log/isag.log';
